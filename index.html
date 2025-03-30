@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://public.tableau.com;">
     <title>Data Analytics Hub 📊✨</title>
     <style>
         body {
@@ -73,18 +74,14 @@
         }
 
         .tableau-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
+            width: 100%;
+            height: 800px; /* גובה קבוע לטעינה ברורה, ניתן להתאים */
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(74, 74, 233, 0.3);
+            overflow: hidden;
         }
 
         .tableau-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             border: none;
@@ -219,6 +216,13 @@
             card.addEventListener('mouseleave', () => {
                 card.querySelector('.emoji-bounce')?.remove();
             });
+        });
+
+        // בדיקת טעינת ה-iframe (אופציונלי)
+        window.addEventListener('load', () => {
+            const iframe = document.querySelector('.tableau-container iframe');
+            iframe.onload = () => console.log('Tableau iframe loaded successfully');
+            iframe.onerror = () => console.error('Error loading Tableau iframe');
         });
     </script>
 </body>
